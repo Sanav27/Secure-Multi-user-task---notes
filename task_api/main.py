@@ -121,7 +121,7 @@ def get_my_tasks(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(auth.get_current_user),
 ):
-    query = db.query(models.Task).filer(
+    query = db.query(models.Task).filter(
         models.Task.owner_id == current_user.id
     )
 
@@ -161,7 +161,7 @@ def get_single_task(
 
 # Route to update an existing task
 
-@app.put("/task/{task_id}", response_model=schemas.TaskOut)
+@app.put("/tasks/{task_id}", response_model=schemas.TaskOut)
 def update_task(
     task_id: int,
     task_update: schemas.TaskUpdate,
